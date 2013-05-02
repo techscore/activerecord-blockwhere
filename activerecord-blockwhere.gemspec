@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["yuki teraoka"]
   spec.email         = ["info@techscore.com"]
   spec.description   = %q{Simply conditions DSL for ActiveRecord }
-  spec.summary       = %q{Simply conditions DSL for ActiveRecord }
+  spec.summary       = %q{Simply conditions DSL for ActiveRecord. It helps using Arel Predications in the block.}
   spec.homepage      = "https://github.com/techscore/activerecord-blockwhere"
   spec.license       = "BSD"
 

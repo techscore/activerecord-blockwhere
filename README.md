@@ -1,6 +1,7 @@
 # Activerecord::Blockwhere
 
-TODO: Write a gem description
+Simply conditions DSL for ActiveRecord.
+It helps using Arel Predications in the block.
 
 ## Installation
 
@@ -18,7 +19,30 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+   # * person has many entries.
+   # Person(id: integer, name: string)
+   # Entry(id: integer, person_id: integer, name: string)
+   
+   Person.where { id.eq(1) }.to_sql
+   # => SELECT "people".* FROM "people"  WHERE "people"."id" = 1
+   
+   Person.where { !id.eq(1) }.to_sql
+   # => SELECT "people".* FROM "people"  WHERE (NOT ("people"."id" = 1))
+   
+   Person.where { id.eq(1) & name.matches('%alice%') }.to_sql
+   # => SELECT "people".* FROM "people"  WHERE ("people"."id" = 1 AND "people"."name" LIKE '%alice%')
+   
+   Person.where { id.in([1,2,3]) & name.not_eq('bob') }.to_sql
+   # => SELECT "people".* FROM "people"  WHERE ("people"."id" IN (1, 2, 3) AND "people"."name" != 'bob')
+   
+   Person.where { name.eq('alice') | name.eq('bob') }.to_sql
+   # => SELECT "people".* FROM "people"  WHERE (("people"."name" = 'alice' OR "people"."name" = 'bob'))
+   
+   # join association
+   Person.where { name.eq('alice') & entries.name.matches('%hello%') }.to_sql
+   # => SELECT "people".* FROM "people"
+   #    INNER JOIN "entries" ON "entries"."person_id" = "people"."id"
+   #    WHERE ("people"."name" = 'alice' AND "entries"."name" LIKE '%hello%')
 
 ## Contributing
 
