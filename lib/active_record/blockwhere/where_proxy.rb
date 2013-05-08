@@ -23,7 +23,7 @@ module ActiveRecord
         reflection = @relation.reflections[name]
         if ::ActiveRecord::Reflection::AssociationReflection === reflection
           @relation = @relation.joins(name) unless @relation.joins_values.include?(name)
-          return WhereProxy.new(reflection.klass.scoped, @context)
+          return WhereProxy.new(reflection.klass.scoped)
         end
         if @context && @context.respond_to?(name)
           return @context.__send__(name, *args, &block)
