@@ -5,7 +5,7 @@ module ActiveRecord
   module Blockwhere
     def where(*args, &block)
       relation = args.empty? ? self : super(*args)
-      relation = WhereProxy.where(relation, block.binding.eval('self'), &block) if block
+      relation = WhereProxy.where(relation, block.binding.eval('self'), &block) if block_given?
       relation
     end
   end
