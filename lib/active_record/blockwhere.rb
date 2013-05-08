@@ -3,9 +3,12 @@ require "active_record/blockwhere/arel_node_operations"
 
 module ActiveRecord
   module Blockwhere
-    def where(*args, &block)
+    def where(*args)
       relation = args.empty? ? self : super(*args)
-      relation = WhereProxy.where(relation, block.binding.eval('self'), &block) if block_given?
+      if block_given?
+        block = Proc.new
+        relation = WhereProxy.where(relation, block.binding.eval('self'), &block)
+      end
       relation
     end
   end
