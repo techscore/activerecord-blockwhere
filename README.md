@@ -51,6 +51,10 @@ Or install it yourself as:
       @person = Person.where { id.eq(params[:id]) }.first
     end
 
+## Introductory articles
+
+* [techscore blog (in Japanese)](http://www.techscore.com/blog/2013/05/08/activerecord-blockwhere/ "techscore")
+
 ## Contributing
 
 1. Fork it
