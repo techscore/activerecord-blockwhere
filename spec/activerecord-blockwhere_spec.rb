@@ -33,4 +33,11 @@ describe ActiveRecord::Blockwhere do
       expect(@context.instance_eval { Person.where{ id.eq(params[:id]) }.first } ).to eq @bob
     end
   end
+  
+  # https://github.com/techscore/activerecord-blockwhere/issues/2
+  context 'Arel::Nodes::Limit and Arel::Nodes::Offset' do
+    it { expect(!Arel::Nodes::Limit.new(10) ).to eq false      }
+    it { expect(!Arel::Nodes::Offset.new(10)).to eq false      }
+  end
+  
 end
