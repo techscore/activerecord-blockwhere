@@ -1,3 +1,4 @@
+require 'active_support/concern'
 module ActiveRecord
   module Blockwhere
     module ArelNodeOperations
@@ -15,6 +16,15 @@ module ActiveRecord
 
       def empty?
         false
+      end
+    end
+    
+    # fix https://github.com/techscore/activerecord-blockwhere/issues/2
+    module RevertArelNodeOperations
+      extend ActiveSupport::Concern
+      included do
+        undef_method :&, :|, :empty?
+        define_method(:!, &Object.method(:!))
       end
     end
   end
