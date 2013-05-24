@@ -18,5 +18,6 @@ ActiveSupport.on_load(:active_record) do
   ActiveRecord::Relation.send :include, ActiveRecord::Blockwhere
   Arel::Nodes::Node.send      :include, ActiveRecord::Blockwhere::ArelNodeOperations
   # fix https://github.com/techscore/activerecord-blockwhere/issues/2
-  Arel::Nodes::Unary.send     :include, ActiveRecord::Blockwhere::RevertArelNodeOperations
+  Arel::Nodes::Limit.send     :include, ActiveRecord::Blockwhere::RevertArelNodeOperations
+  Arel::Nodes::Offset.send    :include, ActiveRecord::Blockwhere::RevertArelNodeOperations
 end
